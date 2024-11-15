@@ -7,25 +7,34 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       nome: {
-        type: Sequelize.TEXT
+        allowNull: false,
+        type: Sequelize.TEXT,
       },
       profissao_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false, 
+        references: {
+          model: 'Profissoes', 
+          key: 'id',          
+        },
+        onUpdate: 'CASCADE', 
+        onDelete: 'SET NULL', 
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Pessoas');
-  }
+  },
 };
