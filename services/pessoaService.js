@@ -11,7 +11,14 @@ const createPessoa = async (data) => {
 
 const getAllPessoas = async () => {
   try {
-    const pessoas = await Pessoa.findAll({ include: Profissao });
+    const pessoas = await Pessoa.findAll({
+      include: [
+        {
+          model: Profissao,
+          attributes: ['descricao'],
+        },
+      ],
+    });
     return pessoas;
   } catch (error) {
     throw new Error(error.message);
